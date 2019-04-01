@@ -1,0 +1,1 @@
+[mac下面iterm2自动连接远程服务器](https://www.jianshu.com/p/d75dc43be7a7)
