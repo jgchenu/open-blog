@@ -1,9 +1,11 @@
-题目：原生js实现ajax请求，原生js实现jsonp请求
+## 题目：原生js实现ajax请求，原生js实现jsonp请求
 
-附上github地址（包含服务端部分）：https://github.com/jgchenu/Communication-basics
+附上github地址（包含服务端部分）：`https://github.com/jgchenu/Communication-basics`
 
-1.原生js实现ajax请求
 
+### 1.原生js实现ajax请求
+---
+```js
  //用原生js构造一个Ajax实例
       
  var ajax = function (param) {
@@ -53,9 +55,10 @@
             }
         })
 
-
-2.原生js实现jsonp请求
-
+```
+### 2.原生js实现jsonp请求
+---
+```js
 var util = {
             callbackName: 'jsonp'
         };
@@ -102,9 +105,10 @@ var util = {
             },
             charset: 'charset'
         })
-
-3.nodejs 使用koa2 实现reastful api以及服务端报错接口
-
+```
+### 3.nodejs 使用koa2 实现reastful api以及服务端报错接口
+---
+```js
 ---index.js
 const Koa = require('koa');
 const Router = require('koa-router');
@@ -152,3 +156,4 @@ module.exports={
         this.message = message || '';
     }
 }
+```
