@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Service Worker跨窗口通信</title>
+</head>
+<body>
+    <textarea id="showArea"></textarea>
+    <script src="sw1.js"></script> 
+    <script src="sw2.js"></script> 
+    <script type="text/JavaScript">
+        if('serviceWorker' in window.navigator) {
+            // 对于多个不同scope的多个Service Worker,我们也可以给指定的Service Worker发送消息
+            navigator.serviceWorker.register('./sw1.js', { scope:'./sw1'})
+                .then(function(reg) {
+                    console.log('success', reg);
+                    return new Promise((resolve, reject) => {
+                        const interval = setInterval(function() {
+                            if(reg.active) {
+                                clearInterval(interval);
+                                resolve(reg.active);
+                            }    
+                        }, 1000);
+                    }).then(sw => {
+                        sw.postMessage("this message is from page to sw1");
+                    })
+                    
+                })
+            navigator.serviceWorker.register('./sw2.js', { scope:'./sw2'})
+                .then(function(reg) {
+                    console.log('success', reg);
+                    return new Promise((resolve, reject) => {
+                        const interval = setInterval(function() {
+                            if(reg.active) {
+                                clearInterval(interval);
+                                resolve(reg.active);
+                            }    
+                        }, 1000);
+                    }).then(sw => {
+                        sw.postMessage("this message is from page to sw2");
+
+                    })
+                    
+                });
+                navigator.serviceWorker.addEventListener('message', function (event) {
+                    console.log(event.data);
+                    // 接受数据，并填充在 DOM 中
+                    document.getElementById('showArea').value = event.data ;
+                });
+        }
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>POST Handler</title>
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/JavaScript">
+            window.addEventListener("message", function( event ) {
+                // 监听父窗口发送过来的数据向服务器发送post请求
+                var data = event.data;
+                $.ajax({
+                    // 注意这里的url只是一个示例.实际练习的时候你需要自己想办法提供一个后台接口
+                    type: 'POST', 
+                    url: 'http://127.0.0.1:3000/ajax',
+                    data: "info=" + data,
+                    dataType: "json"
+                }).done(function(res){        
+                    //将请求成功返回的数据通过postMessage发送给父窗口        
+                    window.parent.postMessage(res, "*");    
+                }).fail(function(res){        
+                    //将请求失败返回的数据通过postMessage发送给父窗口        
+                    window.parent.postMessage(res, "*");    
+                });
+            }, false);
+        </script>
+    </head>
+
+    <body></body>
+</html>

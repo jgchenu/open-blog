@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>跨域POST消息发送</title>
+    <script type="text/JavaScript">
+        /*
+        mesage 事件回调函数的event属性
+        data :   指的是从其他窗口发送过来的消息对象;
+        type:   指的是发送消息的类型;
+        source:   指的是发送消息的窗口对象;
+        origin:  指的是发送消息的窗口的源  
+        */
+            // sendPost 通过postMessage实现跨域通信将表单信息发送到 http://127.0.0.1:63701/child.html上,
+            // 并取得返回的数据    
+            function sendPost() {        
+                // 获取id为otherPage的iframe窗口对象      
+                var iframeWin = document.getElementById("otherPage").contentWindow;        
+                /* 向该窗口发送消息 
+                 postMessage方法第一个参数是要发送的数据，可以是任何原始类型的数据
+                postMessage方法第二个参数可以设置要发送到哪个url，如果当前子页面的url和设置的不一致，则会发送失败，我们设置为*，代表所有url都允许发送。                         
+                */
+                iframeWin.postMessage(document.getElementById("message").value, 
+                    '*');    
+            }    
+            // 监听跨域请求的返回    
+            window.addEventListener("message", function(event) {        
+                console.log(event, event.data);    
+            }, false);
+        </script>
+</head>
+
+<body>
+    <textarea id="message"></textarea>
+    <input type="button" value="发送" onclick="sendPost()">
+    <iframe src="http://127.0.0.1:63701/child.html" id="otherPage" style="display:none"></iframe>
+</body>
+
+</html>
