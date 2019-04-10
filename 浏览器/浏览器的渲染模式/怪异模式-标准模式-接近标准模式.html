@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>怪异模式-标准模式-接近怪异模式</title>
+</head>
+
+<body>
+    <!-- 
+    怪异模式与标准模式:
+
+    1.怪异模式使用不同于标准的盒模型:
+    怪异模式使用：ie盒子模型（也就相当于 IE8+ 下的：box-sizing: border-box）,
+    而标准模式下使用的是标准盒子模型(box-sizing:content-box)
+
+    2.怪异模式下某些行内（inline）元素的垂直对齐行为表现怪异：
+    怪异模式下，对齐图片至包含它们的盒子的下边框
+    而 标准模式图片对其到父盒的 baseline
+
+    接近标准模式（有限怪异模式）与标准模式:
+
+    1.接近标准模式使用与标准模式相同的标准盒子模型（box-sizing:content-box）
+    2.但是表现出与怪异模式相同的第二个特征：某些行内（inline）元素的垂直对齐行为表现怪异,行内元素的默认垂直对齐到父元素盒子的底部
+
+     -->
+
+     <!-- 
+        无 DOCTYPE 头触发怪异模式
+
+        DOCTYPE 头不正确（不是 html）也触发怪异模式
+
+        如：<!DOCTYPE svg>
+
+        DOCTYPE 头为 HTML3 头触发怪异模式
+
+        DOCTYPE 头为 HTML4 头则触发接近标准模式（或称有限怪异模式）
+        常见的 HTML5 DOCTYPE 声明则使用标准模式
+      -->
+</body>
+
+</html>
