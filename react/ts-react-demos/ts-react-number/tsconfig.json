@@ -1,0 +1,15 @@
+{
+  // 编译选项
+  "compilerOptions": {
+    "target": "es5", // 编译成es5语法
+    "module": "commonjs", // 模块的类型
+    "outDir": "./dist", // 编译后的文件目录
+    "sourceMap": true, // 生成sourceMap方便我们在开发过程中调试
+    "noImplicitAny": true, // 每个变量都要标明类型
+    "jsx": "react", // jsx的版本,使用这个就不需要额外使用babel了，会编译成React.createElement
+  },
+  // 为了加快整个编译过程，我们指定相应的路径
+  "include": [
+    "./src/**/*"
+  ]
+}
