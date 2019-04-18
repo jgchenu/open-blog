@@ -1,0 +1,22 @@
+    <!-- 文件：index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ejs</title>
+</head>
+<body>
+    <%=name%>
+    <%=age%>
+
+    <%if (name=="panda") {%>
+        panda
+    <%} else {%>
+        shen
+    <%}%>
+
+    <%arr.forEach(item => {%>
+        <li><%=item%></li>
+    <%})%>
+</body>
+</html>

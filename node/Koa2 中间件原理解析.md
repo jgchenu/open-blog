@@ -256,7 +256,7 @@ Node 模板是我们经常使用的工具用来在服务端帮我们渲染页面
 npm install koa koa-views ejs
 ```
 下面是一个 ejs 的模板文件：
-```js
+```html
 <!-- 文件：index.ejs -->
 <!DOCTYPE html>
 <html lang="en">

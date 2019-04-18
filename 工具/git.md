@@ -1,0 +1,88 @@
+- 修改文件保存提交
+  - `git commit -a -m '描述'` 
+  - 等价于  `git add .` `git commit -m '描述'`
+- 从master切feature1分支（假设分支feature1不存在）
+  - `git checkout -b feature1` 等价于 `git branch feature1` `git checkout feature1`
+  - 如果远程仓库没有该分支,需要git push origin feature1
+- 当前工作目录状态：包含暂存区跟未暂存文件: `git status`
+  - `git status` 等价于 `gst`
+- 远程拉取仓库master
+  - `git checkout master`
+  - `git pull` 的实际操作其实是把远端仓库的内容用 fetch 取下来之后，用 merge 来合并。等同于`git fetch` `git merge origin/HEAD`
+- master分支合并feature1分支，生成一个新的commit
+  - `git pull` 保持本地master跟远程仓库master同步
+  - `git checkout master`
+  - `git merge feature1 `
+- master 合并分支解决冲突
+  - 手动解决冲突后，在这种状态下 commit，Git 就会自动地帮你添加「这是一个 merge commit」的提交信息。
+  - 假如要放弃解决冲突:`git merge --abort`
+  - 解决完冲突后:`git merge --continue`
+- 整个分支从起始commit当前commit的过程记录
+  - 该分支所在的commit到起点的所有commit过程+描述信息:`git log `
+  - 如果需要查看整个commit过程，每次commit具体修改了什么: `git log -p`
+  - 如果需要查看整个commit过程，每次commit哪些文件改动了: `git log --stat`
+- show 查看具体的 commit
+  - `git show` 当前的commit修改的内容
+  - `git show 5e68b0d8` 看任意一个 commit
+  - `git show 5e68b0d8 shopping_list.txt`看指定 commit 中的指定文件
+- 看未提交的内容
+  - `git diff --staged` 显示暂存区和上一条提交之间的不同,`--staged` 有一个等价的选项叫做 `--cached`
+  - `git diff` 显示工作目录和暂存区之间的不同
+  - `git diff HEAD` 上面二者的内容相加「如果你现在把所有文件都 add 然后 git commit，你将会提交什么」,HEAD 换成别的 commit，也可以显示当前工作目录+暂存区 和这条 commit 的区别
+- rebase--在新位置重新提交
+  - `git checkout branch1`
+  - `git rebase master ` 把commit交叉基础点移动到master的commit后增加branch1的commit记录
+  - `git checkout master`
+  - `git merge branch1` 合并branch1之后，解决冲突。master跟branch1 处于同一条线上，原本branch1的那条线废弃了，除非有comit的sha1值，通过 `git checkout 5e68b0d8` 切回去
+- 刚刚commit的代码，发现写错了怎么办
+  - 修改当前的文件为准确的
+  - `git commit --amend '描述'` 当前的commit会**替换**掉
+- 写错的不是最新的提交，而是倒数第二个？
+  - `git rebase -i HEAD^^` 
+  - 列出了将要「被 rebase」的所有 commits,排列是正序的，旧的 commit 会排在上面，新的排在下面。
+  - 你需要修改这两行的内容来指定你需要的操作。每个 commit 默认的操作都是 pick （从图中也可以看出），表示「直接应用这个 commit」。所以如果你现在直接退出编辑界面，那么结果仍然是空操作。
+  - 但你的目标是修改倒数第二个 commit，也就是上面的那个「增加常见笑声集合」，所以你需要把它的操作指令从 pick 改成 edit 。 edit 的意思是「应用这个 commit，然后停下来等待继续修正」。
+  - 把 pick 修改成 edit 后，就可以退出编辑界面了
+  - `git add .`
+  - `git commit -a -m '描述'`用 commit --amend 来把修正应用到当前最新的 commit：
+  - `git rebase --continue`在修复完成之后，就可以用 rebase --continue 来继续 rebase 过程，把后面的 commit 直接应用上去。
+- 比错还错，想直接丢弃刚写的提交？
+  - `git reset --hard HEAD^` 你被撤销的那条提交并没有消失，只是你不再用到它了。如果你在撤销它之前记下了它的 SHA-1 码，那么你还可以通过 SHA-1 来找到他它。
+- 想丢弃的也不是最新的提交？
+  - 你想撤销倒数第二条 commit，那么可以使用 `git rebase -i HEAD^^`,，你需要修改这个序列来进行操作。不过不同的是，之前讲的修正 commit 的方法是把要修改的 commit 左边的 pick 改成 edit，而如果你要撤销某个 commit ，做法就更加简单粗暴一点：直接删掉这一行就好。你需要修改这个序列来进行操作。不过不同的是，之前讲的修正 commit 的方法是把要修改的 commit 左边的 pick 改成 edit，而如果你要撤销某个 commit ，做法就更加简单粗暴一点：直接删掉这一行就好。 
+  - 除了用交互式 `rebase` ，你还可以用 `rebase --onto` 来更简便地撤销提交。`rebase` 加上 `--onto` 选项之后，可以指定 rebase 的「起点」。`--onto `参数后面有三个附加参数：目标 commit、起点 commit（注意：rebase 的时候会把起点排除在外）、终点 commit。所以上面这行指令`git rebase --onto 第3个commit 第4个commit branch1`就会从 4 往下数，拿到 branch1 所指向的 5，然后把 5 重新提交到 3 上去。
+  - 同样的，你也可以用 rebase --onto 来撤销提交：`git rebase --onto HEAD^^ HEAD^ branch1` 上面这行代码的意思是：以倒数第二个 commit 为起点（起点不包含在 rebase 序列里哟），branch1 为终点，rebase 到倒数第三个 commit 上。
+- 代码已经 push 上去了才发现写错？
+  - `git revert HEAD^` 上面这行代码就会增加一条新的 commit，它的内容和倒数第二个 commit 是相反的，从而和倒数第二个 commit 相互抵消，达到撤销的效果。
+  - 在 revert 完成之后，把新的 commit 再 push 上去，这个 commit 的内容就被撤销了。它和前面所介绍的撤销方式相比，最主要的区别是，这次改动只是被「反转」了，并没有在历史中消失掉，你的历史中会存在两条 commit ：一个原始 commit ，一个对它的反转 commit。
+- reset 的本质——不止可以撤销提交
+  - `git reset --hard HEAD^`  用这行代码可以撤销掉当前 commit
+  - `git reset --soft`: 会在重置 HEAD 和 branch 时，保留工作目录和暂存区中的内容，并把重置 HEAD 所带来的新的差异放进暂存区。
+  - `git reset HEAD^`:--mixed（默认）工作目录的内容和 --soft 一样会被保留，但和 --soft 的区别在于，它会把暂存区清空。
+- checkout 使用
+  - 并不止可以切换 branch。checkout 本质上的功能其实是：签出（ checkout ）指定的 commit。
+  - `git checkout HEAD^^`
+  - `git checkout master~5`
+  - `git checkout 78a4bc`
+  - checkout 有一个专门用来只让 HEAD 和 branch 脱离而不移动 HEAD 的用法：`git checkout --detach`
+- 临时储藏
+  - `git stash` 弹入储藏
+  - `git stash push -m '描述'`弹入储藏(有描述)
+  - `git stash pop stash@{0}` 弹出储藏
+  - `git stash apply stash@{0}` 应用储藏，依然保留这份储藏
+  - `git stash list` 查看储藏
+  - 注意：没有被 track 的文件（即从来没有被 add 过的文件不会被 stash 起来，因为 Git 会忽略它们。如果想把这些文件也一起 stash，可以加上 `-u` 参数，它是 `--include-untracked` 的简写。就像这样：`git stash -u`
+- branch 删过了才想起来有用？
+  - reflog ：引用的 log
+  - `git reflog` 默认查看head的移动历史
+  - `git checkout c08de9a`
+  - `git checkout -b branch1`
+  - 查看其他引用的 reflog
+  - `git reflog master`
+- .gitignore——排除不想被管理的文件和目录
+- git的设置
+  - `git config --list`获取仓库的设置
+  - `git config user.name "chenjianguang"`设置仓库的name
+  - `git config user.email "chenjianguang@bytedance.com"`设置仓库的email
+  - `git config --global user.name ""` 设置全局的name
+  - `git config --global user.email ""`设置全局的email
