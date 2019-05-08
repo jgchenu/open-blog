@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>左（absolute,left:0）center（absolute,left:左的width，right：右的width） 右（absolute，right：0）</title>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .layout div {
+            min-height: 600px;
+        }
+
+        .layout {
+            position: relative;
+        }
+
+        .left {
+            background: lightgreen;
+            width: 200px;
+            position: absolute;
+            left: 0;
+        }
+
+        .right {
+            background-color: lightcoral;
+            width: 300px;
+            position: absolute;
+            right: 0;
+        }
+
+        .center {
+            background: lightblue;
+            position: absolute;
+            right: 300px;
+            left: 200px;
+        }
+    </style>
+    <div class="layout">
+        <div class="left"></div>
+        <div class="center">
+            <h2>三栏布局的居中部分</h2>
+            1.这是三栏布局的中间部分
+            2.这是三栏布局的中间部分
+            3.这是三栏布局的中间部分
+            4.这是三栏布局的中间部分
+            5.这是三栏布局的中间部分
+            6.这是三栏布局的中间部分
+        </div>
+        <div class="right"></div>
+    </div>
+</body>
+
+</html>

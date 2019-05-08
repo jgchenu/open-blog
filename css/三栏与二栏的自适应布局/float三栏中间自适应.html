@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>左（float）右（float）center（自适应bfc）</title>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .layout div {
+            min-height: 600px;
+        }
+
+        .left {
+            width: 200px;
+            height: 100%;
+            float: left;
+            background: lightgreen;
+        }
+
+        .right {
+            width: 300px;
+            height: 100%;
+            float: right;
+            background-color: lightcoral;
+        }
+
+        .center {
+            background: lightblue;
+            overflow: auto; 
+        }
+    </style>
+    <div class="layout">
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="center">
+            <p>111</p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>float拉伸</title>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .layout div {
+            min-height: 600px;
+        }
+
+        .left {
+            background: lightgreen;
+            width: 200px;
+            float: left;
+        }
+
+        .right {
+            background-color: lightcoral;
+            overflow: auto;
+        }
+    </style>
+    <div class="layout">
+        <div class="left">
+            1.这是两栏布局的左边部分
+            2.这是两栏布局的左边部分
+            3.这是两栏布局的左边部分
+            4.这是两栏布局的左边部分
+            5.这是两栏布局的左边部分
+            6.这是两栏布局的左边部分
+        </div>
+        <div class="right">
+            1.这是两栏布局的右边部分
+            2.这是两栏布局的右边部分
+            3.这是两栏布局的右边部分
+            4.这是两栏布局的右边部分
+            5.这是两栏布局的右边部分
+            6.这是两栏布局的右边部分
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        #layout {
+            background-color: red;
+        }
+
+        #layout .left {
+            float: left;
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+
+        #layout .right {
+            height: 110px;
+            background-color: blue;
+        }
+    </style>
+    <!-- 元素内的BFC子元素跟浮动子元素不会发生重叠 -->
+
+    <section id="layout">
+        <h3 style="background-color: #fff;">左侧固定宽度，右侧自适应；左浮动，且右侧高度高于左侧</h3>
+        <div class="left">float: left;height: 100px;</div>
+        <div class="right">height: 110px;</div>
+
+        <h3 style="background-color: #fff;">BFC不与float重叠</h3>
+        <div class="left">float: left;height: 100px;</div>
+        <div class="right" style="overflow: auto;">height: 110px;用overflow: auto;创建BFC，就不会再与左侧部分发生重叠</div>
+    </section>
+</body>
+
+</html>

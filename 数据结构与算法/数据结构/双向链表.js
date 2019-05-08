@@ -1,0 +1,97 @@
+//节点构造函数,element用于保存节点的数据，next用来保存指向下一个节点的链接,previous用作前驱，记录前一个节点
+function Node(element) {
+    this.element = element;
+    this.next = null;
+    this.previous = null;
+}
+//链表类构造函数，包含对链表操作的方法
+function LList() {
+    this.head = new Node('head');
+    this.find = find;
+    this.insert = insert;
+    this.remove = remove;
+    this.display = display;
+    this.dispReverse=dispReverse;
+    this.findLast=findLast;
+}
+//查找节点
+function find(item) {
+    var currentNode = this.head;
+    while (currentNode.element != item) {
+        currentNode = currentNode.next;
+    }
+    return currentNode;
+}
+//插入新节点
+function insert(newElement, item) {
+    var newNode = new Node(newElement);
+    var currentNode = this.find(item);
+    newNode.next = currentNode.next;
+    currentNode.next = newNode;
+    newNode.previous = currentNode;
+
+}
+//打印链表的数据
+function display() {
+    var currentNode = this.head;
+    while (currentNode.next != null) {
+        print(currentNode.next.element);
+        currentNode = currentNode.next;
+    }
+}
+
+//有了双链表之后，就不需要找到删除节点的前一个节点进行删除了。
+
+// //找到要删除的节点的上一个节点
+// function findPrevious(item) {
+//     var currentNode = this.head;
+//     //只有同时满足该节点下一个节点既不是null，又不是找到的那个节点，循环才会继续，
+//     //如果该节点是null，或者是找到的那个节点，那么就跳出循环
+//     while (currentNode.next.element != item && currentNode.next != null) {
+//         currentNode = currentNode.next;
+//     }
+//     return currentNode;
+// }
+
+//删除节点
+function remove(item) {
+    var currentNode = this.find(item);
+    if (currentNode != null) {
+        //如果要删除节点的上一个节点不是null（也就不是找不到），
+        //将要删除节点的上一个节点的后继，连接到要删除节点的后继。
+        //将要删除节点的的下一个节点的前驱，连接到要删除节点的上一个节点
+        //将要删除节点的后继置空，将要删除节点的前驱置空
+        currentNode.previous.next = currentNode.next;
+        currentNode.next.previous = currentNode.previous;
+        currentNode.next = null;
+        currentNode.previous = null;
+    }
+}
+//找到最后一个节点
+function findLast(){
+    var currentNode=this.head;
+    while (currentNode.next!=null) {
+        currentNode=currentNode.next;
+    }
+    return currentNode;
+}
+
+function dispReverse(){
+    var currentNode=this.head;
+    currentNode=this.findLast();
+    while (currentNode!=null) {
+        print(currentNode.element);
+        currentNode=currentNode.previous;
+    }
+}
+var cities = new LList();
+cities.insert('Conway', 'head');
+cities.insert('Russellville', 'Conway');
+cities.insert('jgchen', 'Russellville');
+cities.insert('yinjun', 'jgchen');
+cities.display();
+print('---------------');
+cities.remove('jgchen');
+cities.display();
+print('--------------');
+cities.dispReverse();

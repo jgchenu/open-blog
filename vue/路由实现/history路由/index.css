@@ -1,0 +1,58 @@
+.nav-list {
+    list-style: none;
+    line-height: 45px;
+    text-align: center;
+}
+
+.nav-list .nav-item {
+    display: inline-block;
+    margin: 0 30px;
+}
+
+.nav-list .nav-item:first-child {
+    margin-left: 0;
+}
+
+.nav-list .nav-item:last-child {
+    margin-right: 0;
+}
+
+.nav-list .nav-item a {
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.nav-list .nav-item.active a {
+    color: #B92500;
+}
+
+.nav-list .nav-item a:hover {
+    color: #B92500;
+}
+
+.main-content .main-box {
+    display: none;
+    text-align: center;
+}
+
+.main-content .main-box-show {
+    display: block;
+}
+
+.nav-area {
+    position: absolute;
+    top: 20px;
+    left: 50px;
+}
+
+.nav-area-back,
+.nav-area-front {
+    display: inline-block;
+}
+
+.nav-area .active {
+    color: #C52C04;
+    cursor: pointer;
+}

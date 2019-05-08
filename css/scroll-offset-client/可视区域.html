@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 300px;
+            height: 400px;
+            background-color: red;
+            margin: 1000px auto 0 auto;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translate(-300%,0)
+            }
+
+            100% {
+                opacity: 1;
+                transform: translate(0, 0)
+            }
+        }
+
+        .animation {
+            animation: fadeIn 2s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+</body>
+<script>
+    function scrollFn() {
+        var clients = window.innerHeight || document.documentElement.clientHeight;
+        //一般不要用body.clientWdith body的content一般是由里面的元素高度撑开的，content宽度默认铺满窗口，如果body元素里面没有元素，则content高度为0
+        var box = document.querySelector('.box');
+        boxTop = box.getBoundingClientRect().top;
+        if ((boxTop) < clients) {
+            box.classList.add('animation')
+        }
+    }
+    window.onscroll=function(){
+        scrollFn()
+    }
+</script>
+
+</html>

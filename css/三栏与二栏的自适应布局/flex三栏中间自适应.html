@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>父亲flex 左（固定width）center（flex:1） 右（固定width）</title>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .layout {
+            /* position: relative; */
+            display: flex;
+        }
+
+        .layout div {
+            min-height: 600px;
+        }
+
+        .left {
+            background: lightgreen;
+            width: 200px;
+        }
+
+        .right {
+            background-color: lightcoral;
+            width: 300px;
+        }
+
+        .center {
+            background: lightblue;
+            flex: 1;
+        }
+    </style>
+    <div class="layout">
+        <div class="left"></div>
+        <div class="center">
+            <h2>三栏布局的居中部分</h2>
+            1.这是三栏布局的中间部分
+            2.这是三栏布局的中间部分
+            3.这是三栏布局的中间部分
+            4.这是三栏布局的中间部分
+            5.这是三栏布局的中间部分
+            6.这是三栏布局的中间部分
+        </div>
+        <div class="right"></div>
+    </div>
+</body>
+
+</html>

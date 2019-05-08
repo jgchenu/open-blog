@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        /* 绝对定位子元素，需要定位的子元素的margin减去宽高的一半*/
+        .box{
+            width: 300px;
+            height: 300px;
+            border: 3px solid red;
+            position: relative;
+        }
+        img{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -50px;
+            margin-left: -50px;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+    <div class="box">
+            <img src="https://b-gold-cdn.xitu.io/v3/static/img/frontend.1dae74a.png" >
+            <span>1111</span>
+    </div>
+</body>
+</html>

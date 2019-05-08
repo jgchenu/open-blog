@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>顶部 （absolute 固定height）中间（absolte,top:顶部height,bottom:尾部height) 尾部(absolte 固定height)</title>
+</head>
+
+<body>
+    <style>
+    /* ！！！！！注意：这里不能设置.layout 为绝对定位相对的元素，因为子元素都为absolute 脱离文档流了，导致.layout元素高度塌陷，宽度因为为block元素，满足流的特性，铺满，但是高度塌陷为0，导致.bottom的定位出现了问题，bottom是以非static父元素的底部为基准的 */
+        /* .layout {
+            position: relative;
+        } */
+
+        .layout div {
+            right: 0;
+            left: 0;
+        }
+
+        .top {
+            background: lightgreen;
+            height: 100px;
+            position: absolute;
+            top: 0;
+        }
+
+        .center {
+            background: lightblue;
+            position: absolute;
+            top: 100px;
+            bottom: 300px;
+        }
+
+        .bottom {
+            background-color: lightcoral;
+            height: 300px;
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+    <div class="layout">
+        <div class="top"></div>
+        <div class="center">
+            <h2>三栏布局的居中部分</h2>
+            1.这是三栏布局的中间部分
+            2.这是三栏布局的中间部分
+            3.这是三栏布局的中间部分
+            4.这是三栏布局的中间部分
+            5.这是三栏布局的中间部分
+            6.这是三栏布局的中间部分
+        </div>
+        <div class="bottom"></div>
+    </div>
+</body>
+
+</html>

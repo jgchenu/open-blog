@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        /*子元素绝对定位和transfrom */
+        .box{
+            width: 300px;
+            height: 300px;
+            border: 3px solid red;
+            position: relative;
+        }
+        img{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            transform: translate(-50%,-50%)
+        }
+    </style>
+    <div class="box">
+            <img src="https://b-gold-cdn.xitu.io/v3/static/img/frontend.1dae74a.png" >
+            <span>1111</span>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 800px;
+            height: 400px;
+            padding: 20px;
+            background-color: lightblue;
+            border: 10px solid #000;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        start
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        center<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        end
+    </div>
+</body>
+<script>
+    var box = document.querySelector('.box')
+
+    function scrollFn() {
+        var clientHeight = box.clientHeight;
+        //一般不要用body.clientHeight body的content高度一般是由里面的元素高度撑开的，content宽度默认铺满窗口，如果body元素里面没有元素，则content高度为0
+        // 而且不要用body.scrollTop跟scrollLeft做滚动距离判断  默认为0 ，就算滚动，也是documentElement的滚动，body跟子元素在一块了，scrolltop一直为0
+        var scrollTop = box.scrollTop;
+        var scrollHeight = box.scrollHeight;
+
+        console.log(scrollTop, scrollHeight)
+
+        if ((scrollTop + clientHeight) >= scrollHeight) {
+            alert('you are at bottom')
+        }
+        if (scrollTop==0) {
+            alert('you are at top')
+        }
+
+
+    }
+    box.onscroll = function () {
+        scrollFn()
+    }
+</script>
+
+</html>

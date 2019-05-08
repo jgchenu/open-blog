@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        /* 
+        vertical-align:该属性定义行内元素的基线相对于该元素所在行的基线的垂直对齐。
+        子元素 为display：inline-block   vertical-align:middle 把此元素放置在父元素的中部。
+        设置父元素 text-align ：center  inline子元素会水平居中居中 
+        关于为什么〈span〉也要加vertical-align：因为你如果不给span设置属性，
+        css会给span一个默认属性：vertical-align:baseline;也就是span底部对齐父元素的基线（baseline），
+        你在span里打个字就看出来了，基线被自动画在div的底部的话，就跟着依据这条基线为轴垂直居中了。
+        */
+        .box{
+            width: 300px;
+            height: 300px;
+            border: 3px solid red;
+            text-align: center;
+            line-height: 300px;
+        }
+        img{
+            width: 100px;
+            vertical-align: middle;
+            height: 100px;
+        }
+        span{
+            vertical-align: middle;
+        }
+    </style>
+    <div class="box">
+            <img src="https://b-gold-cdn.xitu.io/v3/static/img/frontend.1dae74a.png" >
+            <span>111</span>
+    </div>
+</body>
+</html>

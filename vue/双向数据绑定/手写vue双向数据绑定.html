@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>手写vue双向数据绑定</title>
+</head>
+<!-- Vue的双向数据绑定的原理相信大家也都十分了解了，
+    主要是通过Object对象的defineProperty属性，
+    重写data的set和get函数来实现的
+
+    【writable】 该属性是否可写，如果设置成 false，则任何对该属性改写的操作都无效（但不会报错），对于像前面例子中直接在对象上定义的属性，这个属性该特性默认值为为 true。
+    【configurable]】如果为false，则任何尝试删除目标属性或修改属性以下特性（writable, configurable, enumerable）的行为将被无效化，对于像前面例子中直接在对象上定义的属性，这个属性该特性默认值为为 true。 。
+    【enumerable】 是否能在for-in循环中遍历出来或在Object.keys中列举出来。对于像前面例子中直接在对象上定义的属性，这个属性该特性默认值为为 true
+-->
+
+<body>
+    <div id="app">
+        <form>
+            <input type="text" v-model="number">
+            <button type="button" v-click="increment">增加</button>
+        </form>
+        <h3 v-bind="number"></h3>
+    </div>
+    <script src='./es6.js'>
+    </script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                number: 0
+            },
+            methods: {
+                increment: function () {
+                    this.number++;
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

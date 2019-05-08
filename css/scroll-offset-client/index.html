@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        body {
+            width: 500px;
+            height: 620px;
+            padding: 20px;
+            border: 10px solid #000;
+            margin: 10px;
+        }
+
+        #father {
+            width: 100px;
+            height: 100px;
+            overflow: scroll;
+        }
+
+        #child {
+            width: 800px;
+            height: 200px;
+            margin: 10px;
+            padding: 20px;
+            border: 10px solid #000;
+        }
+    </style>
+    <div id="father">
+        <div id="child">
+
+        </div>
+    </div>
+
+    <script>
+        //浏览器的窗口内部高度跟内部宽度，即浏览器可视区的宽度高度，不包括各种调试工具栏
+        console.log('innerwidth:', window.innerWidth)
+        console.log('innerHeight', window.innerHeight)
+        //浏览器的窗口外部高度跟外部宽度，包括各种调试工具栏
+        console.log('outerWidth', window.outerWidth)
+        console.log('outerHeight', window.outerHeight)
+        //屏幕的宽度高度
+        console.log('window.screen.width', window.screen.width)
+        console.log('window.screen.height', window.screen.height)
+        //屏幕的可用高度宽度，不包含顶部菜单栏
+        console.log('window.screen.availWidth', window.screen.availWidth)
+        console.log('window.screen.availHeigth', window.screen.availHeight)
+        /*
+        默认在chrome是标准盒子模型
+        标准盒子模型：style.width=content的宽度 
+        IE盒子模型： style.width=content的宽度+padding*2+border*2;
+        这里的border*2 =border-left+border-right  或者 border-top+border-bottom
+
+        如果没有滚动条，则是元素的内容高度宽度+padding*2，元素的clientWidth=style.padding*2+content宽度=style.padding*2+style.width
+
+        如果出现滚动条，滚动条会覆盖元素的宽高，毕竟是获取可视部分：元素的内容宽度/高度+padding*2
+        元素的clientWidth=style.padding*2+content宽度-滚动轴宽度=style.padding*2+style.width-滚动轴宽度
+
+        clientLeft==border-left宽度 clientTop==border-top宽度  是用来读取元素的border高度跟宽度
+        */
+        console.log('clientWidth', document.body.clientWidth)
+        console.log('clientHeight', document.body.clientHeight)
+
+        /*
+        不受滚动条影响， 元素的offsetWidth=style.padding*2+border*2+content宽度=style.padding*2+border*2+style.width;
+        offsetLeft offsetTop 是基于offsetParent的
+        取postion 为relative 或者absolute 的最近的父级元素为offsetParent，没有的话，则是以body为 offsetParent
+
+        在ie6/7中
+        offsetLeft=(offsetParent的padding-left)+(当前元素的margin-left)
+
+        在ie8/9/10以及chrome中
+        offsetLeft=(offsetParent的marin-left）+(offsetParent的border-left)+(offsetParent的padding-left)+(当前元素的margin-left)
+
+        在FireBox中
+        offsetLeft=(offsetParent的marin-left）+(offsetParent的padding-left)+(当前元素的margin-left)
+        */
+        console.log('offsetWidth', document.body.offsetWidth);
+        console.log('offsetHeight', document.body.offsetHeight)
+        var child = document.querySelector('#child');
+        var father = document.querySelector('#father')
+        console.log('child offsetWidth', child.offsetWidth);
+        console.log('child offsetLeft', child.offsetLeft)
+
+        /*
+            document.body.scrollWidth 或者div的scollWidth
+            两种情况
+            1:无滚动轴时，则scrollWidth=clientWidth=style.width+padding*2，
+            2:有滚动轴时，则father.scrollWidth=父元素padding*2+被隐藏子元素的内容（child的content）+子元素border*2+子元素padding*2+子元素marin-left（如果子元素有设置了marin，那么在父元素的视窗中看得见的那部分有marin计算，实际上marin-right已经消失，并没有计算进去）；
+            
+           //一般不要用body.clientHeight body的content高度一般是由里面的元素高度撑开的，content宽度默认铺满窗口，如果body元素里面没有元素，则content高度为0
+            // 而且不要用body.scrollTop做滚动距离判断  默认为0 ，就算滚动，也是documentElement的滚动，因为body的高度是子元素撑开的，heigh方向跟子元素在一块，scrolltop一直为0
+            scrollTop scrollLeft 指的是元素里面的内容超出了其宽高的时候，子元素被卷起来的高度和宽度，通过父元素设置滑动距离
+        */
+        console.log('body scrollWidth', document.body.scrollWidth)
+        console.log('father scrollWidth', father.scrollWidth) //800+20*2+10*2+10(marin-left)
+        // father.scrollLeft=200;
+
+        /*
+        document 文档元素
+        document.body body元素
+        document.documentElement html元素
+        */
+        console.log('document', document); //nodeType=9 nodeName=#document
+        console.log('document.body', document.body) //nodeType=1 nodeName=BODY
+        console.log('document.documentElement', document.documentElement) //nodeType=1 nodeName=HTML
+
+        /*
+        兼容做法获取可视区域宽度高度 document,.documentElement.clientWidth||document.body.clientWidth
+        */
+
+        /*
+        event中的五种坐标
+
+        
+        clientX及clientY：触发位置相对于浏览器窗口（可视区左上角0,0）的坐标
+        screenX和screenY：触发位置相对于设备屏幕左上角（0,0）的坐标
+
+        offsetX和offsetY：相对于绑定了事件的dom左上角（0,0）的坐标
+        如果有scroll offsetX=没移动时候的属性+scrollLeft
+
+        pageX和pageY：触发位置相对于整个网页左上角（0,0）的坐标
+        如果有scroll pageX=没移动时候的属性+scrollLeft
+
+        event.x===event.clientX  event.y===event.clientY
+        screenX ==== screenLeft   screenY====screenTop
+        */
+        father.addEventListener('click', function (event) {
+            console.log('clientX:', event.clientX, 'clientY:', event.clientY)
+            console.log('screenX:', event.screenX, 'screenY:', event.screenY)
+            console.log('offsetX:', event.offsetX, 'offsetY:', event.offsetY)
+            console.log('pageX:', event.pageX, 'pageY', event.pageY)
+            console.log('X:', event.x, 'Y', event.y)
+            //event.offsetX===event.client-father.offsetLeft
+        })
+
+        //    getBoundingClientRect可以用来获取距离浏览器窗口的距离 跟clientX 一样
+
+        function getScrollBar() {
+            var el = document.createElement('p'),
+                styles = {
+                    width: '1px',
+                    height: '1px',
+                    overflowY: 'scroll'
+                },
+                i, scrollBarWidth;
+            el.innerHTML = "12333";
+            for (i in styles) {
+                el.style[i] = styles[i]
+            }
+            document.body.appendChild(el);
+            var scrollBarWidth = el.offsetWidth - el.clientWidth;
+            document.body.removeChild(el)
+            return scrollBarWidth;
+        }
+
+        console.log(getScrollBar());
+    </script>
+</body>
+
+</html>

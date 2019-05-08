@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>父亲(table ) 左（固定大小,table-cell） 右（固定大小,table-cell）</title>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .layout div {
+            min-height: 600px;
+        }
+
+        .layout {
+            display: table;
+            /* width:100%(不用设置，block元素满足流的特性，默认铺满) */
+        }
+
+        .left {
+            background: lightgreen;
+            width: 200px;
+            display: table-cell;
+        }
+
+        .right {
+            background-color: lightcoral;
+            width: 300px;
+            display: table-cell;
+        }
+
+        .center {
+            background: lightblue;
+        }
+    </style>
+    <div class="layout">
+        <div class="left"></div>
+        <div class="center">
+            <h2>三栏布局的居中部分</h2>
+            1.这是三栏布局的中间部分
+            2.这是三栏布局的中间部分
+            3.这是三栏布局的中间部分
+            4.这是三栏布局的中间部分
+            5.这是三栏布局的中间部分
+            6.这是三栏布局的中间部分
+        </div>
+        <div class="right"></div>
+    </div>
+</body>
+
+</html>

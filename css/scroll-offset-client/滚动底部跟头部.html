@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            overflow: scroll;
+        }
+
+        .box {
+            width: 800px;
+            height: 400px;
+            background-color: red;
+            margin: 1000px auto 0 1000px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+</body>
+<script>
+    function scrollFn() {
+        var clientHeight = window.innerHeight;
+        var clientWidth = window.innerWidth;
+        //一般不要用body.clientHeight body的content高度一般是由里面的元素高度撑开的，content宽度默认铺满窗口，如果body元素里面没有元素，则content高度为0
+        // 而且不要用body.scrollTop跟scrollLeft做滚动距离判断  默认为0 ，就算滚动，也是documentElement的滚动，body跟子元素在一块了，scrolltop一直为0
+        //document.documentElement.scrollTop===window.pageYOffset
+        //document.documentElement.scrollLeft===window.pageXOffset
+        var scrollTop = document.documentElement.scrollTop;
+        var scrollHeight = document.documentElement.scrollHeight;
+        var scrollWidth = document.documentElement.scrollWidth;
+        var scrollLeft = document.documentElement.scrollLeft
+        console.log(scrollLeft, scrollTop, scrollHeight)
+
+        if ((scrollTop + clientHeight) >= scrollHeight) {
+            // alert('you are at bottom')
+        }
+        if ((scrollLeft + clientWidth) >= scrollWidth) {
+            alert('you are at right')
+        }
+        if (scrollTop == 0) {
+            // alert('you are at top')
+        }
+        if (scrollLeft == 0) {
+            alert('you are at left')
+        }
+    }
+    window.onscroll = function () {
+        scrollFn()
+    }
+</script>
+
+</html>
